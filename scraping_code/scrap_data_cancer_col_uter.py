@@ -37,10 +37,10 @@ df = pd.DataFrame(data, columns=column_names)
 print(df)  # Affiche le tableau dans la console
 
 # Sauvegarder dans un fichier CSV avec les colonnes
-df.to_csv("donnees_circ.csv", index=False)
+df.to_csv("data_cancer_cil_uter.csv", index=False)
 
 # Afficher le chemin complet du fichier
-print("Fichier enregistré à :", os.path.abspath("donnees_circ.csv"))
+print("Fichier enregistré à :", os.path.abspath("data_cancer_cil_uter.csv"))
 
 # Fermer le navigateur
 driver.quit()
