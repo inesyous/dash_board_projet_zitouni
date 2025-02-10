@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animation Virus et Cancers HPV avec Modal</title>
+  <style>
+    /* Style de base */
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Contenu aligné en haut */
+      min-height: 100vh;
+    }
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    /* Conteneur principal pour l'animation */
+    .orbit-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin-top: 50px; /* Décalage pour éviter le chevauchement avec le titre */
+    }
+    /* Image du virus au centre avec animation de flottement */
+    .virus {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      transform: translate(-50%, -50%);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-10px); }
+    }
+    /* Conteneur pour les images de cancers */
+    .orbit {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    /* Style pour chaque cancer (image cliquable) */
+    .disease {
+      position: absolute;
+      padding: 5px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .disease:hover {
+      transform: scale(1.1);
+    }
+    /* Classes de taille */
+    .size-small { width: 60px; height: 60px; }
+    .size-medium { width: 125px; height: 125px; }
+    .size-large { width: 150px; height: 150px; }
+    /* L'image occupe toute la div */
+    .disease img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      border-radius: 15px;
+    }
+    /* Positionnement des 4 images autour du virus */
+    .disease:nth-child(1) {
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    } /* En haut : Anus */
+    .disease:nth-child(2) {
+      top: 50%;
+      left: 95%;
+      transform: translate(-50%, -50%);
+    } /* À droite : Oropharynx */
+    .disease:nth-child(3) {
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    } /* En bas : Pénis */
+    .disease:nth-child(4) {
+      top: 50%;
+      left: 5%;
+      transform: translate(-50%, -50%);
+    } /* À gauche : Vagin */
+
+    /* Style de la fenêtre modale */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #222;
+      padding: 20px;
+      padding-bottom: 60px; /* Ajout d'un espacement en bas pour éviter le chevauchement */
+      border-radius: 10px;
+      text-align: left; /* Contenu aligné à gauche */
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    /* Bouton "Fermer" positionné en bas à droite */
+    .modal-close {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer;
+      padding: 10px 20px;
+      background: #ff4e50;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 16px;
+    }
+    /* Style pour la source, positionnée en bas à gauche */
+    .modal-source {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 0.8em;
+      color: #ccc;
+    }
+    /* Style des listes dans la modale */
+    .modal-content ul {
+      margin: 0;
+      padding-left: 20px;
+      list-style: disc;
+    }
+    .modal-content li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cancers liés au Papillomavirus</h1>
+  <div class="orbit-container">
+    <!-- Image centrale du virus -->
+    <img src="file:///Users/badisbensalem/Desktop/dash_board_projet_zitouni/src/image_dash/papilomavirus(1).png" alt="Virus" class="virus">
+    <div class="orbit">
+      <!-- Les 4 cancers affichés -->
+      <div class="disease size-medium" data-name="Anus">
+        <img src="/Users/badisbensalem/Desktop/dash_board_projet_zitouni/src/image_dash/cancer_anal(6).png" alt="Anus">
+      </div>
+      <div class="disease size-medium" data-name="Voies Aérodigestives Supérieures">
+        <img src="/Users/badisbensalem/Desktop/dash_board_projet_zitouni/src/image_dash/cancer_Oropharynx(3).png" alt="Voies Aérodigestives Supérieures">
+      </div>
+      <div class="disease size-medium" data-name="Pénis">
+        <img src="/Users/badisbensalem/Desktop/dash_board_projet_zitouni/src/image_dash/cancer_penis(4).png" alt="Pénis">
+      </div>
+      <div class="disease size-medium" data-name="Vagin">
+        <img src="/Users/badisbensalem/Desktop/dash_board_projet_zitouni/src/image_dash/cancer_vagin(5).png" alt="Vagin">
+      </div>
+    </div>
+  </div>
+
+  <!-- Fenêtre modale pour afficher les informations -->
+  <div class="modal" id="cancerModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">Titre</h2>
+      <div id="modalInfo">
+        <!-- Le contenu sera injecté ici sous forme de liste -->
+      </div>
+      <p class="modal-source">Data source: De Sanjosé et al. (2019)</p>
+      <button class="modal-close" id="modalClose">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    // Informations organisées sous forme de liste HTML pour chaque cas
+    const infoMapping = {
+      "Anus": "<ul><li>Anus : 95.7%</li></ul>",
+      "Voies Aérodigestives Supérieures": "<ul><li>Oropharynx : 95.1%</li><li>Cavité orale : 92.7%</li><li>Larynx : 77.8%</li></ul>",
+      "Pénis": "<ul><li>Pénis : 88.1%</li></ul>",
+      "Vagin": "<ul><li>Vulve : 92.8%</li><li>Col de l’utérus (Cervix) : 89.3%</li><li>Vagin : 85.6%</li></ul>"
+    };
+
+    // Sélection des éléments cliquables et des éléments de la modale
+    const diseaseItems = document.querySelectorAll('.disease');
+    const modal = document.getElementById('cancerModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalInfo = document.getElementById('modalInfo');
+    const modalClose = document.getElementById('modalClose');
+
+    // Au clic sur une image, affiche la modale avec les informations correspondantes
+    diseaseItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const name = item.getAttribute('data-name');
+        // Pour l'élément "Vagin", changer le titre en "Appareil génital féminin"
+        if (name === "Vagin") {
+          modalTitle.textContent = "Appareil génital féminin";
+        } else {
+          modalTitle.textContent = name;
+        }
+        modalInfo.innerHTML = infoMapping[name] || "";
+        modal.style.display = 'flex';
+      });
+    });
+
+    // Fermer la modale en cliquant sur le bouton "Fermer"
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Fermer la modale si l'utilisateur clique en dehors du contenu
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
