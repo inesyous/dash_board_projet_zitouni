@@ -40,7 +40,7 @@ df["ASR (World)"].fillna(0, inplace=True)
 app = dash.Dash(__name__)
 
 # Layout de l'application
-layout_2_cancers = html.Div([
+app.layout = html.Div([
     html.H1("Interactive Map of Human Papillomavirus and Associated Cancers", style={"textAlign": "center"}),
 
 
@@ -125,4 +125,5 @@ def update_map(selected_cancer, selected_type):
 
     return fig
     
-layout_2_cancers
+if __name__ == "__main__":
+    app.run_server(debug=True)
