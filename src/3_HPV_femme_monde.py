@@ -43,7 +43,7 @@ df = prepare_data(df)
 app = dash.Dash(__name__)
 
 # Mise en page du Dashboard
-layout_3_hpv = html.Div([
+app.layout = html.Div([
     html.H1("HPV Vaccination Rates for Girls Worldwide"),
 
     html.Div([
@@ -165,4 +165,5 @@ def animate_year(n_intervals, current_year):
         return int(df['Year'].min())
     return current_year + 1
 
-layout_3_hpv
+if __name__ == "__main__":
+    app.run_server(debug=True)
