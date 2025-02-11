@@ -4,11 +4,11 @@ import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
-# Liste des types de cancers et des métriques
+# Liste des cancers et des métriques
 cancers = ["penis", "vulva", "larynx", "oropharynx", "col", "oral_cavite", "vagin", "anus"]
 metrics = ["incidence", "mortalite"]
 
-# Créer un dictionnaire pour associer un nom lisible à chaque type de cancer
+# Créer un dictionnaire pour associer un nom à un type de cancer
 cancer_labels = {
     "penis": "Penis Cancer",
     "vulva": "Vulva Cancer",
@@ -20,7 +20,6 @@ cancer_labels = {
     "anus": "Anal Cancer"
 }
 
-# Création de la liste de DataFrames
 df_list = []
 
 for cancer in cancers:
@@ -37,14 +36,14 @@ df = pd.concat(df_list, ignore_index=True)
 df["ASR (World)"] = pd.to_numeric(df["ASR (World)"], errors="coerce")
 df["ASR (World)"].fillna(0, inplace=True)
 
-# Initialisation de l'application Dash
+
 app = dash.Dash(__name__)
 
 # Layout de l'application
-app.layout = html.Div([
+layout_2_cancers = html.Div([
     html.H1("Interactive Map of Human Papillomavirus and Associated Cancers", style={"textAlign": "center"}),
 
-    # Conteneur pour les sélections, positionnées côte à côte
+
     html.Div([
         # Sélecteur pour le type de cancer
         # Sélecteur pour le type de cancer
@@ -58,7 +57,7 @@ app.layout = html.Div([
             ),
         ], style={'width': '48%', 'paddingRight': '2%'}),  # Espace entre les deux éléments
 
-        # Sélecteur pour l'indicateur (mortalité ou incidence)
+        # Sélecteur pour l'indicateur
         html.Div([
             html.Label("Select an indicator:"),
             dcc.RadioItems(
@@ -78,7 +77,7 @@ app.layout = html.Div([
 ])
 
 
-# Callback pour mettre à jour la carte en fonction des sélections
+# Callback qui va mettre à jour la carte en fonction des sélections
 @app.callback(
     Output("map-choropleth", "figure"),
     [Input("cancer-dropdown", "value"),
@@ -88,7 +87,6 @@ def update_map(selected_cancer, selected_type):
     # Filtrage des données en fonction des sélections
     filtered_df = df[(df["Cancer"] == selected_cancer) & (df["Type"] == selected_type)]
 
-    # Si aucune donnée n'est disponible, afficher un message
     if filtered_df.empty:
         return px.choropleth(title="No data available")
 
@@ -126,6 +124,5 @@ def update_map(selected_cancer, selected_type):
     )
 
     return fig
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
+    
+layout_2_cancers
