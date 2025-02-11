@@ -64,7 +64,7 @@ app.layout = html.Div([
                 id="type-radio",
                 options=[
                     {"label": "Incidence", "value": "incidence"},
-                    {"label": "Mortality", "value": "mortality"}
+                    {"label": "Mortality", "value": "mortalite"}
                 ],
                 value="incidence",  # valeur par défaut
                 inline=True
