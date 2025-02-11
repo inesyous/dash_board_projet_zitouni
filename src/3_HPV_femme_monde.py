@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.express as px
 
-# Charger le fichier CSV contenant les données
+# Charger le fichier CSV
 df = pd.read_csv("/Users/perrine/Desktop/M1/S2/modelisation/HPV_vaccine_data.csv", sep=";", skiprows=1)
 
 # Créer un dictionnaire de correspondance pays-code ISO
@@ -43,7 +43,7 @@ df = prepare_data(df)
 app = dash.Dash(__name__)
 
 # Mise en page du Dashboard
-app.layout = html.Div([
+layout_3_hpv = html.Div([
     html.H1("HPV Vaccination Rates for Girls Worldwide"),
 
     html.Div([
@@ -165,6 +165,4 @@ def animate_year(n_intervals, current_year):
         return int(df['Year'].min())
     return current_year + 1
 
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
+layout_3_hpv
