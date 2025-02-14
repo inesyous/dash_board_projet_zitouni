@@ -3,3 +3,4 @@ plotly
 requests
 dash
 dash-bootstrap-components
+os
