@@ -486,7 +486,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 from dash import callback_context
-
+import os
 app.layout = html.Div([
     # Colonne gauche (12%)
     html.Div([
@@ -1146,4 +1146,5 @@ def update_popup_and_close(clickData, selected_sex, n_clicks, current_style):
     return fig, current_style
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    port = int(os.environ.get('PORT', 5000)) 
+    app.run_server(debug=True, host='0.0.0.0', port=port)
